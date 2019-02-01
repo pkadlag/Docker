@@ -1,0 +1,96 @@
+Assignment
+
+NOTE: Do not forget to see manual page using "--help" option in command when searching for options/commands for a particular task.
+
+1. Install Docker, either on your native OS or on a VM. Make sure it runs. type "docker -v" to check if it's installed.
+   try below commands for help
+	docker --help  ---> This command shows all available options and commands to work with images and containers
+	docker images --help ---> This command shows all the avaialble options and commands to work with docker images
+	docker ps --help ---> This command shows all the avaialble options and commands to work with docker containers
+
+ans-
+	 ssh pkadlag@satyensingh2c.mylabserver.com
+	yes
+	password:pkadlag
+	docker -v
+	Docker version 18.09.1, build 4c52b90
+	ssh pkadlag@3.1.64.118
+	docker run hello-world
+	docker ps -a
+	cat /etc/passwd
+	docker images
+
+2. Find a image from dockerhub of your choice(recommeded: nginx), don't use browser, pull the official image from dockerhub
+ans-	docker search hello-search
+
+3. List all the available images in your machine/vm, make sure you see recently pulled image in the list.
+ans-	docker images
+
+4. Find out the "Full" ImageId of the image that you pulled and write it below.
+ans-	docker images --no-trunc
+
+
+5. Create a container of your image 
+ans-	docker run --name punam hello-world
+	docker container create --name punam-container1 hello-world
+
+
+6. List all the running containers
+ans-	docker container ls
+
+7. List all the running and stopped containers
+ans-	docker ps -a
+	stop: docker ps -a -f status=exited
+
+8. Find out the "Full" containerId of the container and write it below.
+ans-
+	For fetting Full ContainerId of container
+	docker ps -a --no-trunc -q
+
+	For getting Full ContainerId of particular container
+	docker inspect --format="{{.Id}}" punam-container
+	cce9d1fcd4434b69246e3b261fb8d7ff492b7e189d79671caa9a155bdb67dad3
+
+9. Find out how many image layers are used to build this image.
+ans- 	docker history centos
+	docker history --no-trunc hello-world
+
+
+
+10. Get the Apache Tomcat 7 server image from the docker hub.
+ans-	docker run -it --rm tomcat:7
+	docker pull tomcat:7.0
+
+
+
+11. Run the Apache Tomcat 7, I mean create a container of Apache Tomcat.
+ans-	docker run --name punam-tomcat-container tomcat:7
+
+
+
+12. Find out what is the IP Address of the Apache Tomcat Container that it is running on
+ans-	docker inspect --format="{{.NetworkSettings.IPAddress}}" punam-tomcat-container
+	172.17.0.25
+
+13. Which Port it is using?
+ans-	docker inspect --format="{{.NetworkSettings.Ports}}" punam-tomcat-container
+	map[8080/tcp:[]]
+		
+14. Try to access the Tomcat's home page from your machine/vm.
+ans-
+
+
+15. What is the disk size of Apache Tomcat image?
+ans-	docker image inspect --format="{{.Size}}" hello-world
+	87472625
+
+16. Find out list of all environment variables that is configured for tomcat image, can you see JAVA_HOME and CATALINA_HOME? What did you notice about it?
+ans-	docker image inspect --format="{{.ContainerConfig.Env}}" tomcat:7
+	JAVA_HOME=/docker-java-home/jre JAVA_VERSION=7u181 JAVA_DEBIAN_VERSION=7u181-2.6.14-2~deb8u1
+	CATALINA_HOME=/usr/local/tomcat TOMCAT_NATIVE_LIBDIR=/usr/local/tomcat/native-jni-lib LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib OPENSSL_VERSION=1.1.0j-1~deb9u1 
+
+17. Find out which port is exposed for tomcat?
+ans-	docker inspect --format='{{.Config.ExposedPorts}}' tomcat:7
+	map[8080/tcp:{}]
+
+
